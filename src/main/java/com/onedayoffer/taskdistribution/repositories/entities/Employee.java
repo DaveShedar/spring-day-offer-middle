@@ -1,6 +1,8 @@
 package com.onedayoffer.taskdistribution.repositories.entities;
 
 import jakarta.persistence.*;
+
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 import static jakarta.persistence.GenerationType.IDENTITY;
@@ -30,5 +32,13 @@ public class Employee {
 
     public List<Task> getTasks() {
         return tasks;
+    }
+
+    public String getFio() {
+        return fio;
+    }
+
+    public String getJobTitle() {
+        return jobTitle;
     }
 }

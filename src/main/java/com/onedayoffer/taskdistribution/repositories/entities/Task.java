@@ -3,8 +3,11 @@ package com.onedayoffer.taskdistribution.repositories.entities;
 import com.onedayoffer.taskdistribution.DTO.TaskStatus;
 import com.onedayoffer.taskdistribution.DTO.TaskType;
 import jakarta.persistence.*;
+import lombok.Data;
+
 import static jakarta.persistence.GenerationType.IDENTITY;
 
+@Data
 @Entity
 @Table(name = "task")
 public class Task {
@@ -50,5 +53,21 @@ public class Task {
 
     public void setStatus(TaskStatus status) {
         this.status = status;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public TaskType getTaskType() {
+        return taskType;
+    }
+
+    public Integer getPriority() {
+        return priority;
+    }
+
+    public Integer getLeadTime() {
+        return leadTime;
     }
 }

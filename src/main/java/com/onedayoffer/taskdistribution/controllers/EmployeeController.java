@@ -3,8 +3,11 @@ package com.onedayoffer.taskdistribution.controllers;
 import com.onedayoffer.taskdistribution.DTO.EmployeeDTO;
 import com.onedayoffer.taskdistribution.DTO.TaskDTO;
 import com.onedayoffer.taskdistribution.DTO.TaskStatus;
+import com.onedayoffer.taskdistribution.repositories.entities.Task;
 import com.onedayoffer.taskdistribution.services.EmployeeService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import lombok.NonNull;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -25,7 +28,7 @@ public class EmployeeController {
 
     @GetMapping("{id}")
     @ResponseStatus(HttpStatus.OK)
-    public EmployeeDTO getOneEmployee(@PathVariable Integer id) {
+    public EmployeeDTO getOneEmployee(@PathVariable @NonNull Integer id) {
         return employeeService.getOneEmployee(id);
     }
 
@@ -37,15 +40,22 @@ public class EmployeeController {
 
     @PatchMapping("{id}/tasks/{taskId}/status")
     @ResponseStatus(HttpStatus.OK)
-    public void changeTaskStatus(@PathVariable Integer id
+    public void changeTaskStatus(@PathVariable Integer id, @PathVariable String newStatus
                                           /* other PathVariable and RequestParam */ ) {
-        //TaskStatus status = TaskStatus.valueOf(newStatus);
+
+        TaskStatus status = TaskStatus.valueOf(newStatus);
+        employeeService.changeTaskStatus(id, status);
+
+
         //employeeService.changeTaskStatus ...
     }
 
-    @PostMapping("...")
+    @PostMapping("/{id}/create/newTasks/{task}")
     @ResponseStatus(HttpStatus.CREATED)
-    public void postNewTask(/* some params */) {
+    public void postNewTask(@PathVariable Integer id, @Valid @RequestBody TaskDTO taskDto) {
+
+        employeeService.postNewTask(id, taskDto);
+
         //employeeService.postNewTask ...
     }
 }
